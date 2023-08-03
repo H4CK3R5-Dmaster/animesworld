@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model anime {
+  id          Int      @id @default(autoincrement())
+  anime_id    String   @db.Text
+  title       String   @db.VarChar(255)
+  description String   @db.Text
+  token_anime String   @db.Text
+  season      String   @db.Text
+  version     String   @db.Text
+  categorie   String   @db.Text
+  image       String   @db.Text
+  created_at  DateTime @db.DateTime(0)
+  updated_at  DateTime @db.DateTime(0)
+}
+
+model categories {
+  id           Int    @id @default(autoincrement())
+  categorie_id String @db.Text
+  name         String @db.VarChar(255)
+}
+
+model episodes {
+  id         Int      @id @default(autoincrement())
+  episode_id String   @db.Text
+  link       String   @db.Text
+  anime_id   String   @db.Text
+  season     String   @db.Text
+  version    String   @db.Text
+  created_at DateTime @db.DateTime(0)
+}
+
+model suggestions {
+  id          Int      @id @default(autoincrement())
+  suggest_id  String   @db.Text
+  user_id     String   @db.Text
+  title       String   @db.VarChar(255)
+  description String?  @db.Text
+  name_anime  String   @db.VarChar(255)
+  season_nbr  Int
+  version     String   @db.Text
+  created_at  DateTime @db.DateTime(0)
+}
+
+model users {
+  id             Int       @id @default(autoincrement())
+  user_id        String    @db.Text
+  username       String    @db.VarChar(255)
+  email          String    @db.Text
+  token          String    @db.Text
+  token_remember String?   @db.Text
+  ispremium      String    @db.Text
+  isadmin        String    @db.Text
+  suggestion     Int?
+  role           String    @db.VarChar(255)
+  created_at     DateTime  @db.DateTime(0)
+  updated_at     DateTime? @db.DateTime(0)
+}
